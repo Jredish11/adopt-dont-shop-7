@@ -143,13 +143,36 @@ RSpec.describe Application, type: :feature do
       
       fill_in "pet_name", with: "Fra"
       click_button("Search")
-      save_and_open_page
+      # save_and_open_page
 
       expect(page).to have_content("Frankenstein")
       expect(page).to have_content("Francis")
       expect(page).to have_content("Mr. Francona")
       expect(page).to_not have_content("Frankie")
       expect(page).to_not have_content("fra")
+    end
+  end
+  
+    # 9. Case Insensitive Matches for Pet Names
+  
+  describe "can search for pets by name, case insensitve" do
+    let!(:shelter_1) { Shelter.create!(foster_program: true, name:"Soul Dog Rescue", city:"Ft Lupton", rank:1)}
+    let!(:pet_2) { shelter_1.pets.create!(adoptable: true, age: 2, breed: "shepherd", name: "Francis")}
+    let!(:app_1) { Application.create!(name: "Max Power", street_address: "456 Main St", city: "Broomfield", state: "CO", zip_code: 80211, description: "Love animals", status: "in progress") }
+    
+    it 'will display all pets names that match, regardless of case' do
+      visit "/applications/#{app_1.id}"
+      
+      fill_in "pet_name", with: "FRANCIS"
+      click_button("Search")
+
+      expect(page).to have_content("Francis")
+
+      fill_in "pet_name", with: "fr"
+      expect(page).to have_content("Francis")
+
+      fill_in "pet_name", with: "Fra"
+      expect(page).to have_content("Francis")
     end
   end
 end
