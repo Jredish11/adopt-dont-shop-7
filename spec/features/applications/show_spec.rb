@@ -154,12 +154,6 @@ RSpec.describe Application, type: :feature do
   end
   
     # 9. Case Insensitive Matches for Pet Names
-
-    # As a visitor
-    # When I visit an application show page
-    # And I search for Pets by name
-    # Then my search is case insensitive
-    # For example, if I search for "fluff", my search would match pets with names "Fluffy", "FLUFF", and "Mr. FlUfF"
   
   describe "can search for pets by name, case insensitve" do
     let!(:shelter_1) { Shelter.create!(foster_program: true, name:"Soul Dog Rescue", city:"Ft Lupton", rank:1)}
