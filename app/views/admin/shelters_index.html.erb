@@ -4,4 +4,9 @@
   <h4><%= shelter.name %></h4>
 <% end %>
 <br>
-<p><h3> Shelters with Pending Applications</h3></p>
+<p><h5> Shelters with Pending Applications</h5></p>
+  <% if @pending_apps.present? %>
+  <% @pending_apps.each do |pending_app| %>
+    <h6><%= pending_app.name %></h6>
+  <% end %>
+<% end %>
