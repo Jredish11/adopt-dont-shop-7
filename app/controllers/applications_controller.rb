@@ -3,7 +3,7 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     @pets = @application.pets
     @application.status = 'Pending' if params[:commit] == 'Submit Application'
-    @pets_search = Pet.search(params[:pet_name]) if params[:pet_name].present?
+    @pets_search = Pet.search(params[:pet_name].downcase) if params[:pet_name].present?
   end
 
   def new
