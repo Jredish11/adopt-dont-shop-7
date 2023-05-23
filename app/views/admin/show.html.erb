@@ -1,0 +1,51 @@
+<section id="application-<%= @application.id %>">
+  <p>Name: <%= @application.name %></p>
+  <p>Street Address: <%= @application.street_address %></p>
+  <p>City: <%= @application.city %></p>
+  <p>State: <%= @application.state %></p>
+  <p>Zipcode: <%= @application.zip_code %></p>
+  <p>Description: <%= @application.description %></p>
+  <p>Status: <%= @application.status %></p>
+  <p>Pets:</p>
+  <% @application.pets.each do |pet| %>
+    <%= link_to pet.name, "/pets/#{pet.id}" %>
+    <% if @application.status != 'Approved' %>
+    <%= form_with(url: "/admin/applications/#{@application.id}", method: :patch) do |form| %>
+        <%= form.hidden_field :pet_id, value: pet.id %>
+        <%= form.submit "Approve" %>
+      <% end %>
+    <% end %>
+  <% end %>
+</section>
+
+<div class="search">
+    <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
+      <h3>Add a Pet to this Application</h3>
+      <p><%= form.label :pet_name %></p>
+      <p><%= form.text_field :pet_name %></p>
+      <p><%= form.submit "Search" %></p>
+  <% end %>
+</div>
+
+<div>
+<% if @pets_search.present? %>
+  <% @pets_search.each do |pet| %>
+    <p>(Name:) <%= pet.name %>, (Breed:) <%= pet.breed %>, (Age:) <%= pet.age %></p>
+    <%= form_with(url: "/applications/#{@application.id}", method: :patch) do |form| %>
+        <%= form.hidden_field :pet_id, value: pet.id %>
+        <%= form.submit "Adopt this Pet" %>
+    <% end %>
+  <% end %>
+<% end %>
+</div>
+
+<div>
+<% if @application.pets.present? %>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
+    <h3>Why Would You Make a Good Pet Owner?</h3>
+    <p><%= form.label :description %></p>
+    <p><%= form.text_field :description %></p>
+    <p><%= form.submit "Submit Application" %></p>
+  <% end %>
+<% end %>
+</div>
