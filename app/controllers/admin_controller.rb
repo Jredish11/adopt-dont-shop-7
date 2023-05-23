@@ -1,8 +1,8 @@
 class AdminController < ApplicationController
   def shelters_index
     @shelters = Shelter.order_by_name_desc
-    @pending_apps = Shelter.joins(pets: [{ application_pets: :application }]).where('applications.status' == "Pending")
-  end
+
+    @pending_apps = Shelter.joins(pets: [{ application_pets: :application }]).where('applications.status' == "Pending") end
 
   def show
     @application = Application.find(params[:id])
@@ -14,15 +14,14 @@ class AdminController < ApplicationController
   end
 
   def update
-    @app_pet = ApplicationPet.find(app_pet_params[:pet_id])
+    @app_pet = ApplicationPet.find(params[:app_pet_id])
     @application = Application.find(params[:id])
     if params[:commit] == "Approve"
-      @app_pet.update({:approved => "Approved"})
+      @app_pet.approve!
     else
       flash[:alert] = "Error"
     end
-    # @application.save
-
+    # require 'pry'; binding.pry
     redirect_to "/admin/applications/#{@application.id}"
   end
 end

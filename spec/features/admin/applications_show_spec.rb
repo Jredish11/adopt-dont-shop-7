@@ -19,14 +19,14 @@ RSpec.describe 'admin/applications/:id', type: :feature do
     it 'displays a button to approve the application next to every pet that the application is for' do
       visit "/admin/applications/#{app_1.id}"
       
-      
-      
       expect(page).to have_button("Approve")
     end
     
     it 'takes me back to the admin application show page when I click the button next to Pet,displays indicator next to the pet that I approved, I do not see a button to approve this pet' do
       visit "/admin/applications/#{app_1.id}"
       click_button("Approve")
+      # save_and_open_page
+      app_1.reload
       save_and_open_page
 
       expect(page).to have_content("Approved")
@@ -34,3 +34,4 @@ RSpec.describe 'admin/applications/:id', type: :feature do
     end
   end
 end
+

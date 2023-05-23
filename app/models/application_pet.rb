@@ -2,5 +2,7 @@ class ApplicationPet < ApplicationRecord
   belongs_to :application
   belongs_to :pet
 
-  attribute :approved, :string, default: "Pending"
+  def approve!
+    self.update(status: "Approved")
+  end
 end
