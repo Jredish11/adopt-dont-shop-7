@@ -14,15 +14,21 @@ class AdminController < ApplicationController
   end
 
   def update
+    @app_pet = ApplicationPet.find(app_pet_params[:pet_id])
     @application = Application.find(params[:id])
-    pet = Pet.find(params[:pet_id])
     if params[:commit] == "Approve"
-      @application.status = 'Approved'
+      @app_pet.update({:approved => "Approved"})
     else
       flash[:alert] = "Error"
     end
-    @application.save
+    # @application.save
 
     redirect_to "/admin/applications/#{@application.id}"
   end
+end
+
+private
+
+def app_pet_params
+  params.permit(:approved, :pet_id)
 end
