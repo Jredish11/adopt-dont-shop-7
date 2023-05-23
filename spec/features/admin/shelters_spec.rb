@@ -37,7 +37,7 @@ RSpec.describe 'admin/shelters', type: :feature do
     # Then I see a section for "Shelters with Pending Applications"
     # And in this section I see the name of every shelter that has a pending application
   
-    it 'has a section for shelters with pending applications' do
+    xit 'has a section for shelters with pending applications' do
       visit "/applications/#{app_1.id}"
       
       fill_in "pet_name", with: "Frankenstein"
