@@ -18,12 +18,6 @@ RSpec.describe 'admin/applications/:id', type: :feature do
     #User Story 12
     it 'displays a button to approve the application next to every pet that the application is for' do
       visit "/admin/applications/#{app_1.id}"
-        # add approve button in admin/applications show.html.erb 
-          # iterate over each pet associated w/ the application
-            # each pet, display a button to approve (form_with) => form url to the route for updating 
-            # application w/ the pet approval status
-              # hidden_field w/ the pet's ID as a parameter
-              # submit button "Approve"
       
       expect(page).to have_button("Approve")
     end
@@ -33,11 +27,11 @@ RSpec.describe 'admin/applications/:id', type: :feature do
       click_button("Approve")
       # save_and_open_page
       app_1.reload
+      save_and_open_page
+
       expect(page).to have_content("Approved")
       expect(page).to_not have_button("Approve")
     end
   end
 end
 
-
-# 
