@@ -36,7 +36,7 @@ RSpec.describe 'admin/shelters', type: :feature do
       it 'has a section for shelters with pending applications' do
         ApplicationPet.create!(application: app_2, pet: pet_2)
         visit 'admin/shelters'
-        save_and_open_page
+        # save_and_open_page
         
         expect(page).to have_content('Shelters with Pending Applications')
         expect(page).to have_content(shelter_1.name, count: 2)
