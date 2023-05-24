@@ -27,10 +27,35 @@ RSpec.describe 'admin/applications/:id', type: :feature do
       click_button("Approve")
       # save_and_open_page
       app_1.reload
-      save_and_open_page
 
       expect(page).to have_content("Approved")
       expect(page).to_not have_button("Approve")
+    end
+  
+    #13. Rejecting a Pet for Adoption
+    # As a visitor
+    # When I visit an admin application show page ('/admin/applications/:id')
+    # For every pet that the application is for, I see a button to reject the application for that specific pet
+    # When I click that button
+    # Then I'm taken back to the admin application show page
+    # And next to the pet that I rejected, I do not see a button to approve or reject this pet
+    # And instead I see an indicator next to the pet that they have been rejected
+  
+    it 'displays a button to reject the application for a specific pet' do
+      visit "/admin/applications/#{app_1.id}"
+      # save_and_open_page
+      expect(page).to have_button("Reject")    
+    end
+  
+    it 'then returns me to admin/applications/:id and that pet can not be rejected or approved again' do
+      visit "/admin/applications/#{app_1.id}"
+      click_button("Reject")
+
+      app_1.reload
+    
+      expect(page).to have_content("Rejected")
+      expect(page).to_not have_button("Approve")
+      expect(page).to_not have_button("Reject")
     end
   end
 end

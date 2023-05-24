@@ -5,4 +5,9 @@ class ApplicationPet < ApplicationRecord
   def approve!
     self.update(status: "Approved")
   end
+
+  def reject!
+    self.update(status: "Rejected")
+  end
+
 end

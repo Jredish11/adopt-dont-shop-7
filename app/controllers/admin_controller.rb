@@ -16,8 +16,10 @@ class AdminController < ApplicationController
   def update
     @app_pet = ApplicationPet.find(params[:app_pet_id])
     @application = Application.find(params[:id])
-    if params[:commit] == "Approve"
+    if params[:commit] == "Approve" && @app_pet.status == "Pending"
       @app_pet.approve!
+    elsif params[:commit] == "Reject" && @app_pet.status == "Pending"
+      @app_pet.reject!
     else
       flash[:alert] = "Error"
     end
