@@ -114,7 +114,6 @@ end
   
       
       visit "/pets"
-      save_and_open_page
       click_on "Start an Application"  
 
       expect(current_path).to eq('/applications/new')
