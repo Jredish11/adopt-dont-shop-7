@@ -20,7 +20,7 @@ RSpec.describe 'admin/shelters', type: :feature do
     # Then I see all Shelters in the system listed in reverse alphabetical order by name
     it 'displays all shelters in reverse alpha order' do
       visit "/admin/shelters"
-      # save_and_open_page
+      
       expect(shelter_1.name).to appear_before(shelter_2.name)
       expect(shelter_2.name).to appear_before(shelter_3.name)
     end
@@ -36,7 +36,7 @@ RSpec.describe 'admin/shelters', type: :feature do
       it 'has a section for shelters with pending applications' do
         ApplicationPet.create!(application: app_2, pet: pet_2)
         visit 'admin/shelters'
-        # save_and_open_page
+        
         
         expect(page).to have_content('Shelters with Pending Applications')
         expect(page).to have_content(shelter_1.name, count: 2)

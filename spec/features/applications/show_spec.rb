@@ -38,7 +38,6 @@ RSpec.describe Application, type: :feature do
         expect(page).to have_content(app_1.zip_code)
         expect(page).to have_content(app_1.description)
         expect(page).to have_content(app_1.status)
-        # expect(page).to have_link("#{pet_2.name}") #its adding both links for the two pets on app_1.id but fails in the test. not sure why.
         expect(page).to have_link("#{pet_1.name}")
         click_link("Frank")
         expect(current_path).to eq "/pets/#{pet_1.id}"
@@ -49,7 +48,7 @@ RSpec.describe Application, type: :feature do
       
     it 'has a field to add a pet to an application' do
       visit "/applications/#{app_1.id}"
-      # save_and_open_page
+      
       expect(page).to have_content("Add a Pet to this Application")
     end  
   
@@ -57,7 +56,6 @@ RSpec.describe Application, type: :feature do
       visit "/applications/#{app_1.id}"
       fill_in 'pet_name', with: "Roxie"
       click_button("Search")
-      # save_and_open_page
 
       expect(page).to have_text("Roxie")
       expect(page).to have_no_content("Roksi")
@@ -143,7 +141,6 @@ RSpec.describe Application, type: :feature do
       
       fill_in "pet_name", with: "Fra"
       click_button("Search")
-      # save_and_open_page
 
       expect(page).to have_content("Frankenstein")
       expect(page).to have_content("Francis")
