@@ -12,20 +12,23 @@
   <div class="status">
   <% @application.application_pets.each do |app_pet| %>
     <% if app_pet.status == "Pending" %>
-      <%= form_with(url: "/admin/applications/#{params[:id]}", data: { turbo: false }, method: :patch) do |form| %>
-        <%= form.hidden_field :app_pet_id, value: app_pet.id %>
-        <%= form.submit "Approve" %>
-      <% end %>
-      <%= form_with(url: "/admin/applications/#{params[:id]}", data: { turbo: false }, method: :patch) do |form| %>
-        <%= form.hidden_field :app_pet_id, value: app_pet.id %>
-        <%= form.submit "Reject" %>
-      <% end %>
+      <div>
+        <%= form_with(url: "/admin/applications/#{params[:id]}", data: { turbo: false }, method: :patch) do |form| %>
+          <%= form.hidden_field :app_pet_id, value: app_pet.id %>
+          <%= form.submit "Approve" %>
+        <% end %>
+        <%= form_with(url: "/admin/applications/#{params[:id]}", data: { turbo: false }, method: :patch) do |form| %>
+          <%= form.hidden_field :app_pet_id, value: app_pet.id %>
+          <%= form.submit "Reject" %>
+        <% end %>
+      </div>
     <% elsif app_pet.status == "Approved" %>
       <p>Approved</p>
     <% elsif app_pet.status == "Rejected" %>
       <p>Rejected</p>
     <% end %>
-  <% end %>  
+  <% end %>
+</div>
   
 </div>
 
