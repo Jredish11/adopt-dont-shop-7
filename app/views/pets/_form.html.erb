@@ -1,0 +1,16 @@
+<%= form_with url: path, method: method do |form| %>
+  
+  <%= form.label :name %>
+  <%= form.text_field :name %>
+
+  <%= form.label :breed %>
+  <%= form.text_field :breed %>
+
+  <%= form.label :adoptable %>
+  <%= form.check_box :adoptable %>
+
+  <%= form.label :age %>
+  <%= form.number_field :age %>
+
+  <%= form.submit button_text %>
+<% end %>

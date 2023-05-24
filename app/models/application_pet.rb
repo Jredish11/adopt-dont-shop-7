@@ -9,5 +9,4 @@ class ApplicationPet < ApplicationRecord
   def reject!
     self.update(status: "Rejected")
   end
-
 end

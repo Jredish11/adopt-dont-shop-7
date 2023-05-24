@@ -24,7 +24,6 @@ RSpec.describe "/applications/new" do
     it 'has a form with all required params' do
       visit "/applications/new"
       expect(current_path).to eq "/applications/new"
-        # save_and_open_page
       expect(page).to have_content("Name")
       expect(page).to have_content("Street address")
       expect(page).to have_content("City")
@@ -61,7 +60,6 @@ RSpec.describe "/applications/new" do
       visit "/applications/new"
 
       click_button "Save"
-      # save_and_open_page
 
 
       expect(current_path).to eq("/applications/new")
