@@ -20,17 +20,23 @@ RSpec.describe 'admin/applications/:id', type: :feature do
     it 'displays a button to approve the application next to every pet that the application is for' do
       visit "/admin/applications/#{app_1.id}"
       
-      expect(page).to have_button("Approve")
+      within("#application-#{app_1.id}") do
+        expect(page).to have_button("Approve")
+      end
     end
     
     it 'takes me back to the admin application show page when I click the button next to Pet,displays indicator next to the pet that I approved, I do not see a button to approve this pet' do
       visit "/admin/applications/#{app_1.id}"
-      click_button("Approve")
-      # save_and_open_page
+      
+      within("#application-#{app_1.id}") do
+        click_button("Approve")
+      end
+      
       app_1.reload
-
-      expect(page).to have_content("Approved")
-      expect(page).to_not have_button("Approve")
+      
+      within("#application-#{app_1.id}") do
+        expect(page).to have_content("Approved")
+        expect(page).to_not have_button("Approve")
     end
   
     #13. Rejecting a Pet for Adoption
@@ -82,8 +88,6 @@ RSpec.describe 'admin/applications/:id', type: :feature do
       expect(page).to_not have_content("Approved")
       expect(page).to_not have_content("Rejected")
     end
-  
-  
   end
 end
 
