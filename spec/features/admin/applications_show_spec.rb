@@ -4,7 +4,7 @@ RSpec.describe 'admin/applications/:id', type: :feature do
   describe 'as a visitor, when I visit an admin application show page' do
     let!(:shelter_1) { Shelter.create!(foster_program: true, name:"Soul Dog Rescue", city:"Ft Lupton", rank:1)}
     let!(:pet_1) { shelter_1.pets.create!(adoptable: true, age: 2, breed: "shepherd", name: "Frankenstein")}
-    let!(:app_1) { Application.create!(name: "Max Power", street_address: "456 Main St", city: "Broomfield", state: "CO", zip_code: 80211, description: "Love animals", status: "in progress") }
+    let!(:app_1) { Application.create!(name: "Max Power", street_address: "456 Main St", city: "Broomfield", state: "CO", zip_code: 80211, description: "Love animals", status: "pending") }
     let!(:app_2) { Application.create!(name: "Clark Kent", street_address: "93428 Washington Ave", city: "Arvada", state: "CO", zip_code: 80411, description: "Family loves animals", status: "pending") }
     let!(:application_pets_1) { ApplicationPet.create!(application_id: app_1.id, pet_id: pet_1.id) }
     let!(:application_pets_2) { ApplicationPet.create!(application_id: app_2.id, pet_id: pet_1.id) }
@@ -27,16 +27,17 @@ RSpec.describe 'admin/applications/:id', type: :feature do
     
     it 'takes me back to the admin application show page when I click the button next to Pet,displays indicator next to the pet that I approved, I do not see a button to approve this pet' do
       visit "/admin/applications/#{app_1.id}"
+      save_and_open_page
       
       within("#application-#{app_1.id}") do
         click_button("Approve")
       end
       
       app_1.reload
-      
       within("#application-#{app_1.id}") do
         expect(page).to have_content("Approved")
         expect(page).to_not have_button("Approve")
+      end
     end
   
     #13. Rejecting a Pet for Adoption
